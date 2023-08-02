@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- xmlns=xml네임스페이스 , th=타임리프 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2> 안녕하세요 , Thymeleaf!!!</h2>
+	<p th:text="${text}">Spring Boot</p>
+	<hr>
+	<p th:text="${person}">person 객체</p>
+	<p th:text="${person.name}">person 네임</p>
+	<p th:text="${person.height}">person 키</p>
+	<hr>
+</body>
+</html>

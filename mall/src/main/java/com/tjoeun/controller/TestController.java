@@ -8,10 +8,10 @@ import com.tjoeun.dto.TmpDTO;
 @RestController
 public class TestController {
 //레스트컨트롤러는 데이터를 뷰로 보냄
-	@GetMapping("/")
-	public String home() {
-		return "Spring Boot !!!";
-	}
+//	@GetMapping("/")
+//	public String home() {
+//		return "Spring Boot !!!";
+//	}
 	@GetMapping("/test1")
 	public TmpDTO test1() {
 		TmpDTO t1 = TmpDTO.builder()
@@ -27,4 +27,6 @@ public class TestController {
 				.build();
 		return t2;
 	}
+	
+
 }

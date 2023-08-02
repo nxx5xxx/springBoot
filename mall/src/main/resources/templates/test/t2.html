@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- xmlns=xml네임스페이스 , th=타임리프 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2> 상품 설명 </h2>
+	
+	<hr>
+<!-- 	<div>
+	상품이름
+	<span th:text="${itemDto.itemNm}"></span>
+	</div>
+	<div>
+	상세설명
+	<span th:text="${itemDto.itemDetail}"></span>
+	</div>
+	<div>
+	가격
+	<span th:text="${itemDto.price}"></span>
+	</div>
+	<div>
+	등록일
+	<span th:text="${itemDto.regTime}"></span>
+	</div>
+	<hr> -->
+	
+		<table>
+		<thead>
+			<tr>
+				<td>상품번호</td><td>상품이름</td><td>설명</td><td>가격</td><td>등록일</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${itemDTO.itemNm}"></td>
+				<td th:text="${itemDTO.itemDetail}"></td>
+				<td th:text="${itemDTO.price}"></td>
+				<td th:text="${itemDTO.regTime}"></td>
+			</tr>
+		</tbody>
+	
+	</table>
+</body>
+</html>
