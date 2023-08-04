@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tjoeun.dto.MemberFormDTO;
 import com.tjoeun.entity.Member;
@@ -67,4 +68,17 @@ public class MemberController {
 
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value = "/login" , method = RequestMethod.GET)
+	public String login() {
+		return "member/memberLoginForm";
+	}
+	
+	@RequestMapping(value="/login/error" ,method = RequestMethod.GET)
+	public String loginError (Model model) {
+		model.addAttribute("loginErrorMessage", "이메일 또는 비밀번호를 확인하거라");
+		return "member/memberLoginForm";
+	}
+	
+	
 }

@@ -1,8 +1,5 @@
 package com.tjoeun.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -27,24 +25,28 @@ public class SecurityConfig {
 		//.logoutRequestMatcher(new AntPathRequestMatcher("")) 로그아웃했을때 이동할 url패턴
 		//.logoutSuccessUrl("/"); 로그아웃 성공시 이동할
 		
-		/*
+		
 		http.formLogin()
-			.loginPage("/members/login")
+			.loginPage("/member/login")
 			.defaultSuccessUrl("/")
 			.usernameParameter("email")
-			.failureUrl("/members/login/error")
+			.failureUrl("/member/login/error")
 			.and()
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 			.logoutSuccessUrl("/");
-			
-		*/
+			//logoutRequestMatcher(new AntPathRequestMatcher 이게 로그아웃 구현안해도 저 맵핑값을 받으면
+		//로그아웃이 되도록한다
+		
 		//이것을 안하면 시큐리티 토큰값 에러가 날 수 있다
 		http.authorizeHttpRequests()
-			.mvcMatchers("/","/member/**","/item/**").permitAll()
+			.mvcMatchers("/","/member/**","/item/**","/test/**").permitAll()
 			.mvcMatchers("/css/**","/js/**","/images/**").permitAll()
 			.mvcMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().authenticated();
+		
+		http.exceptionHandling()
+			.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 		
 		return http.build();
 	}

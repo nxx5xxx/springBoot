@@ -1,10 +1,16 @@
 package com.tjoeun.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.tjoeun.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member,Long>{
-
-	Member findByEmail(String email);
+	
+	//옵셔널을 안할때
+	//Member findByEmail(String email);
+	
+	//옵셔널로할때
+	Optional<Member> findByEmail(String email);
 }

@@ -17,3 +17,10 @@
     DB에 insert
     회원정보 중복체크
     다 Enum사용
+
+## [0804](https://github.com/nxx5xxx/springBoot/blob/master/0804.md)
+    시큐리티 로그인 로그아웃
+    리터럴데이터 영역설명
+    람다짧게 더블콜론
+    타임리프시큐리티
+    연관관계맵핑

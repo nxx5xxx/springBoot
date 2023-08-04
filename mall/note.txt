@@ -332,3 +332,139 @@
 			th:value="${_csrf.token}">
 			
 	이것은 스프링 시큐리티를 사용하기때문에 토큰값을 지정해준것
+---
+---
+---
+
+	
+## 0804
+### 로그인 로그아웃 기능 구현하기
+	Spring Security에서 UserDetailsService 인터페이스를 implements 하는
+	클래스를 작성해서 로그인 기능을 구현함
+	
+	UserDetailsService 인터페이스는 데이타베이스에서 회원정보를 가져오는 역할을 한다
+	
+		loadUserByUsername() 메소드를 overriding 해서
+		회원정보를 조회하고 사용자의 정보와 권한을 갖는
+		UserDetail 인터페이스를 반환한다
+				ㄴ Spring Security에서 회원의 정보를 담는 기능을 한다
+				  UserDetail 인터페이스를 임플먼츠 하는 클래스(User)를 작성한다
+				  									ㄴ 클래스(User)의 객체를 생성함
+		
+## Optional 옵셔널
+
+
+## 리터럴데이터
+	자바의메모리영역은 열몇개가된다
+	Method Area --클래스 정보가 올라가는곳
+	call stack
+	heap --new 로 생성하면 이 영역에 올라가게된다 new옆에오는 클래스는 다 생성자이다
+	
+	리터럴 데이터를 만들면 메소드에어리어에 영역을 만들어서(constant pool)
+	
+	new로 만든건 heap영역
+	
+	String a = "1"; 이렇게하면 메소드에어리어에 상수로 저장되고
+	
+	String b = new String("1"); 이렇게하면 Heap메모리에 저장된다
+	
+### 함수가 클래스 밖에 있으면 함수 그것이 클래스 안에 있으면 메소드
+
+### 람다 짧게 설명
+	람다식은 메소드를 변수처럼 활용하고싶어서 생긴것
+	그렇기때문에 접근제한자,타입, 메소드 명을 생략해서 만들게 되는것이다
+	
+	() -> new String("테스트")
+	
+	
+	Public String test1(){
+		return new String("테스트");
+	}
+	
+	함수형 인터페이스에 대해 공부하면 더 잘 알수있다
+	
+### 자바영역 짧게 설명
+	자바의메모리영역은 열몇개가된다
+	Method Area --데이터 정보가 올라가는곳
+	call stack
+	heap --new 로 생성하면 이 영역에 올라가게된다 new옆에오는 클래스는 다 생성자이다
+	
+	리터럴 데이터를 만들면 메소드에어리어에 영역을 만들어서(constant pool)
+	
+	new로 만든건 heap영역
+	
+	String a = "1"; 이렇게하면 메소드에어리어에 상수로 저장되고
+	
+	String b = new String("1"); 이렇게하면 Heap메모리에 저장된다
+	
+	a = "2"; 로 할 시 "1"은 사라지지않고 계속 메모리영역에 남아있으며
+	(즉, 메모리주소는 계속 고정적이라 리터럴 데이터라고 한다)
+	
+	b = new String("2"); 로 할경우 new String("2") 를 쓰는 참조객체가 더이상없으면
+	가비지 컬렉터에 의해 사라지게된다
+	String c = new String("2"); 를하게되면 Heap영역에 새로운 2라는 데이터가 만들어지고
+	그 주소를 갖다가 c가 쓰게되며
+	b의 "2"와는 다른것이라 서로 주소가 다르게 되는것 
+	
+## thymeleaf-extras-pringsecurity5
+	타임리프에서 시큐리티를 적용하는 의존성
+	https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
+	<!-- thymeleaf-extras-springsecurity5 -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+		
+## 연관 관계 맵핑
+	맵핑된 Entity를 조회할 때 지연로딩 방식과 즉시 로딩 방식이 있다
+	지연로딩 - 필요할때 로딩 : 대부분 많이 사용하는방식
+	즉시로딩 - 미리 다 로딩 : 미리로딩하면 느려서 선호하지않음
+	
+	
+### 연관관계 맵핑종류
+	1) 1:1 <-- @OneToOne
+	2) 1:N <-- @OneToMany
+	3) N:1 <-- @ManyToOne
+	4) N:N <-- @ManyToMany
+	
+### 연관관계 맵핑방향
+	1) 단방향
+	2) 양방향
+		
+### 즉시로딩 FetchType.EAGER
+	@OneToOne(fetch=FetchType.EAGER)
+	
+	@OneToOne과 @ManyToOne 방식으로 매핑할때 기본값이다
+	Entity를 조회할 때 해당 Entity와 Mapping 된 Entity를 한꺼번에 조회한다
+	data를 조회할 때 연관된 모든 객체의 데이터를 모두 다 한꺼번에 조회한다
+	(조회는 메모리에 올린다는 의미이다)
+### 지연로딩 FetchType.LAZY
+	@OneToMany(fetch=FetchType.LAZY)
+	
+	@OneToMany 방식으로 매핑할때 기본값이다
+	필요한 시점에 연관된 객체(Entity)의 data를 불러온다
+	
+### N:1 Mapping설명
+	장바구니에는 고객이 구매하고자 하는 상품들을 담을수 있다
+	여러개의상품N 고객1
+	
+	하나의 장바구니에는 여러개의 상품을 담을 수 있다
+	1:N
+	
+	하나의 상품은 여러 장바구니의 담겨질 수 있다
+	1:N
+	
+	장바구니T - 장바구니상품T - 상품	
+	
+	
+### orders테이블과order_item 테이블 관계 Mapping 하기
+	orders 테이블의 orders_id 컬럼(의 값) 을 <--참조키(reference key)
+	order_item 테이블의 orders_id 컬럼에서 사용하도록 설정
+		ㄴ자식테이블			ㄴ 외래키(foreign key)
+		
+	어떤 상품을 주문한지 알 수 있고
+	주문한 상품이 어떤 주문에 속해 있는지 파악할 수 있음
+	
+	*********************************************
+	외래키로 양방향 조회를 할 수 있다
+	*********************************************

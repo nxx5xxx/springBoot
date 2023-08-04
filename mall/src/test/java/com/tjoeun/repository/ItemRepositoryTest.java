@@ -181,7 +181,7 @@ class ItemRepositoryTest {
 			//builder.and(qItem.itemSellStatus.eq(ItemSellStatus.SELL));
 		}
 		// of(시작페이지,가져올페이지개수)
-		Pageable pageable = PageRequest.of(1, 5);
+		Pageable pageable = PageRequest.of(0, 5);
 		/*
 		 	Page<Item> org.springframework.data.querydsl.
 		 	QuerydslPredicateExecutor.findAll(Predicate predicate, Pageable pageable)
