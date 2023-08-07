@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TmpDTO {
+public class TmpDto {
 	//빌더패턴은
 	//필요한 클래스만 선택해서 값을 넣을 수 있는것
 	private String name;

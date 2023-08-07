@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tjoeun.dto.ItemDTO;
+import com.tjoeun.dto.ItemDto;
 import com.tjoeun.test.Person;
 
 import lombok.extern.log4j.Log4j2;
@@ -29,7 +29,7 @@ public class Test2Controller {
 	}
 	
 	@GetMapping("/t2")
-	public void t2(ItemDTO itemDto) {
+	public void t2(ItemDto itemDto) {
 		itemDto.setItemDetail("상세설명-");
 		itemDto.setItemNm("상품-");
 		itemDto.setPrice(30000);
@@ -37,9 +37,9 @@ public class Test2Controller {
 	}
 	
 	@GetMapping({"/t3" , "/t4"})
-	public void t3(ItemDTO itemDto,Model model) {
+	public void t3(ItemDto itemDto,Model model) {
 		
-		List<ItemDTO> itemList = new ArrayList<>();
+		List<ItemDto> itemList = new ArrayList<>();
 			for(int i=0;i<10;i++) {
 			itemDto.setItemDetail("상세설명-"+(i+1));
 			itemDto.setItemNm("상품-"+(i+1));

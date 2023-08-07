@@ -13,7 +13,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
-public class MemberFormDTO {
+public class MemberFormDto {
 
 	// 회원가입 할 때 입력해야되는 내용을
 	// MemberFormDTO 클래스의 멤버변수로 지정함

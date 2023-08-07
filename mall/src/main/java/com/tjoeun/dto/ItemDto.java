@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ItemDTO {
+public class ItemDto {
 
 	private Long id; 		//상품코드
 

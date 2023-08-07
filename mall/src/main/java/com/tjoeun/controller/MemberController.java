@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.tjoeun.dto.MemberFormDTO;
+import com.tjoeun.dto.MemberFormDto;
 import com.tjoeun.entity.Member;
 import com.tjoeun.service.MemberService;
 
@@ -31,7 +31,7 @@ public class MemberController {
 	
 	// localhost:포트번호/member/new
 	@GetMapping("/new")
-	public String memberForm(MemberFormDTO memberFormDTO) {
+	public String memberForm(MemberFormDto memberFormDTO) {
 		return "member/memberForm";
 	}
 	/*
@@ -49,7 +49,7 @@ public class MemberController {
 	*/
 	
 	@PostMapping("/new")
-	public String memberForm(@Valid MemberFormDTO memberFormDTO,BindingResult result,Model model) {
+	public String memberForm(@Valid MemberFormDto memberFormDTO,BindingResult result,Model model) {
 		if(result.hasErrors()) {
 			log.info("축하합니다!!!!!!! 회원가입실패!");
 			return "member/memberForm";

@@ -56,9 +56,11 @@ class ItemRepositoryTest {
 	public void findByItemNmtest() {
 		createItemList();
 		List<Item> itemList = itemRepository.findByItemNm("상품1");
+		System.out.println("---------상품명조회테스트 시작---------");
 		for(Item item : itemList) {
 			System.out.println(item.toString());
 		}
+		System.out.println("---------상품명조회테스트 종료---------");
 	}
 	
 	@Test
@@ -93,7 +95,7 @@ class ItemRepositoryTest {
 	public void findByItemDetailNativeTest() {
 		createItemList();
 		
-		List<Item> itemList = itemRepository.findByItemDetailNative("상세설명");
+		List<Item> itemList = itemRepository.findByItemDetailNative("상세설명1");
 		System.out.println("\n ----------------------Native로 ItemDetail에 나온 단어 중 일부에 해당하는 상품 가져오기시작-------------------");
 		for(Item item : itemList) {
 			System.out.println(item);
@@ -162,17 +164,17 @@ class ItemRepositoryTest {
 	}
 	
 	@Test
-	@DisplayName("query dsl 테스트")
+	@DisplayName("query dsl 테스트2")
 	public void qeurydslTest2() {
 		createItemList2();
 		String itemDetail = "상세";
-		int price = 10200;
+		int price = 10800;
 		String itemSellStatus = "SELL";
-		// 스태틱 임포트 한 item사용하기 (근데난 스태틱임포트안함)
+		// 스태틱 임포트 한 item사용하기 (근데난 스태틱임포트안했으니 까먹지말고 유의하고 할것)
 		QItem qItem = QItem.item;
 		BooleanBuilder builder = new BooleanBuilder();
 		builder.and(qItem.itemDetail.like("%"+itemDetail+"%"));
-		//gt는 grater than 즉, 10200보다 큰
+		//gt는 grater than 즉, 10800보다 큰
 		builder.and(qItem.price.gt(price));
 		//판매 중인 상품이라면 - project 내 값을 비교한다
 		if(StringUtils.equals(itemSellStatus, ItemSellStatus.SELL)) {
@@ -190,7 +192,7 @@ class ItemRepositoryTest {
 		Page<Item> allData = itemRepository.findAll(builder, pageable);
 		
 		// 전체 개수 확인하기
-		System.out.println("-----------------------------------------");
+		System.out.println("------------querydsl 2 시작-----------------------------");
 		log.info("전체 개수 : " + allData.getTotalElements()+"개");
 		
 		//List<Item> org.springframework.data.domain.Slice.getContent()
@@ -198,6 +200,6 @@ class ItemRepositoryTest {
 		for(Item item2 : contents) {
 			log.info("item2 : "+item2);
 		}
-		System.out.println("-----------------------------------------");
+		System.out.println("------------querydsl 2 시작 종료-----------------------------");
 	}
 }

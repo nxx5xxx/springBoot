@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
-import com.tjoeun.dto.MemberFormDTO;
+import com.tjoeun.dto.MemberFormDto;
 import com.tjoeun.entity.Member;
 
 @SpringBootTest
@@ -26,7 +26,7 @@ class MemberServiceTest {
 	private PasswordEncoder passwordEncoder;
 	
 	public Member createMember() {
-		MemberFormDTO memberFormDTO = new MemberFormDTO();
+		MemberFormDto memberFormDTO = new MemberFormDto();
 		memberFormDTO.setEmail("theDog@naver.com");
 		memberFormDTO.setName("강아지");
 		memberFormDTO.setAddress("정발산");

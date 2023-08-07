@@ -24,3 +24,18 @@
     람다짧게 더블콜론
     타임리프시큐리티
     연관관계맵핑
+
+## [0807](https://github.com/nxx5xxx/springBoot/blob/master/0807.md)    
+    외래키(foreign key)로 양방향 조회를 할 수 있음
+    Controller > Service > Repository > Entity(DB)
+    연관 관계 매핑 종류 - N : 1 / 1 : N 양방향 Mapping
+    <Orders Entity>
+    영속성 전이와 고아객체(orphan object)
+     N : M Mapping  <-- 실무에서는 사용하지 않음
+     @EntityListener :
+     JPA에서 제공하는 7가지 Event
+     @MappedSuperclass
+     modelmapper library
+     application.properties 파일에 파일 업로드 관련 설정하기
+     < uploadFile() 메소드>
+     fos.write(fileData);

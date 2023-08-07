@@ -18,7 +18,7 @@ import lombok.ToString;
 @Getter @Setter
 @NoArgsConstructor
 @ToString
-public class CartItem {
+public class CartItem extends BaseEntity{
 
 	
 	@Id
