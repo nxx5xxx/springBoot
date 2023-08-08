@@ -39,3 +39,8 @@
      application.properties 파일에 파일 업로드 관련 설정하기
      < uploadFile() 메소드>
      fos.write(fileData);
+
+## [0808](https://github.com/nxx5xxx/springBoot/blob/master/0808.md)  
+    상품조회
+    상품수정
+    페이징처리

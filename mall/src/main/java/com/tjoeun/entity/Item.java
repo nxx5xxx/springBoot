@@ -11,6 +11,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import com.tjoeun.constant.ItemSellStatus;
+import com.tjoeun.dto.ItemFormDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,5 +45,15 @@ public class Item extends BaseEntity {
 	//@Enumerated 이넘을 클래스의 멤버변수로 설정할수 있도록 하는 어노테이션
 	@Enumerated(EnumType.STRING)//Ordinal 숫자
 	private ItemSellStatus itemSellStatus;
+	
+	// item(Entity) 업데이트 하기 : DB테이블에 반영하기
+	// dto -> entity
+	public void updateItem(ItemFormDto itemFormDto) {
+		this.itemNm = itemFormDto.getItemNm();
+		this.price = itemFormDto.getPrice();
+		this.stockNumber = itemFormDto.getStockNumber();
+		this.itemDetail = itemFormDto.getItemDetail();
+		this.itemSellStatus = itemFormDto.getItemSellStatus();
+	}
 	
 }

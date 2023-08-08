@@ -40,7 +40,7 @@ public class ItemImg {
 	private String repImgYn; // 대표 이미지 여부
 	
 	// 이미지를 변경하는 경우
-	public void updateImg(String imgName, String oriImgName, String imgUrl) {
+	public void updateItemImg( String oriImgName,String imgName, String imgUrl) {
 		this.imgName = imgName;
 		this.oriImgName = oriImgName;
 		this.imgUrl = imgUrl;

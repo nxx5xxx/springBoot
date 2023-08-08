@@ -680,3 +680,27 @@
         void write(byte[] b)	매개변수로 전달받은 배열의 내용을 문자로 출력
         void write(byte[] b, int off, int len)	
                               배열의 'off' 인덱스부터 'len' byte만큼 읽어서 문자로 출력
+                              
+## 0808
+### PathVariable
+	@GetMapping("/admin/item/{itemId}")
+	public String itemUpdate(@PathVariable("itemId") Long itemId, Model model) {
+	//	 PathVariable 은 매핑속에있는 {~}를 받아온다
+	
+### 상품조회하기 <-querydsl 을 사용
+
+	상품 관리 메뉴로 들어갔을 때
+	상품조회하도록 하고
+	페이징 기능으로 일정 개수 상품만
+	화면에 나오게하기
+	
+	조회조건 1) 상품등록일
+			2) 판매상태
+			3) 상품명이나 등록자아이디
+			4) 등록자아이디
+			
+	Querydsl + JPA같이사용 : ItemRepository 에
+							QuerydslPredicateExecutor<Item> 를 상속한다
+							ItemCustomRepository interface작성
+							
+### 페이징처리

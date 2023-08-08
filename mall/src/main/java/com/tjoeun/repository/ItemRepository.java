@@ -12,7 +12,7 @@ import com.tjoeun.entity.Item;
 
 //public interface ItemRepository extends JpaRepository<Item,Long>{
 //쿼리 dsl추가
-public interface ItemRepository extends JpaRepository<Item,Long>,QuerydslPredicateExecutor<Item>{
+public interface ItemRepository extends JpaRepository<Item,Long>,QuerydslPredicateExecutor<Item>,ItemCustomRepository{
 	//find(Entity클래스 이름) By(멤버변수이름)
 	//엔티티 클래스 이름은 제네릭으로 지정했기때문에 생략할수있다
 	List<Item> findByItemNm(String ItemNm); // select * from item where itemNm
