@@ -76,7 +76,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/login/error" ,method = RequestMethod.GET)
 	public String loginError (Model model) {
-		model.addAttribute("loginErrorMessage", "이메일 또는 비밀번호를 확인하거라");
+		model.addAttribute("loginErrorMessage", "이메일 또는 비밀번호를 확인하시오");
 		return "member/memberLoginForm";
 	}
 	

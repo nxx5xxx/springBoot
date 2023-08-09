@@ -1,0 +1,9 @@
+@charset "UTF-8";
+textarea{
+	width:100%;
+}
+
+/* 인풋타임 서브밋에대한 설정 */
+input[type=submit]{
+	margin-top:10px;
+}
