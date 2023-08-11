@@ -1,5 +1,7 @@
 package com.tjoeun.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tjoeun.dto.AnswerFormDTO;
 import com.tjoeun.entity.Question;
+import com.tjoeun.entity.Users;
 import com.tjoeun.service.AnswerService;
 import com.tjoeun.service.QuestionService;
+import com.tjoeun.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,9 +29,11 @@ public class AnswerController {
 	
 	private final AnswerService answerService;
 	
+	private final UsersService usersService;
 	// id < -- Question 의 id
 	@PostMapping("/create/{id}")
-	public String createAnswer(@PathVariable("id") Long id,Model model,@Valid AnswerFormDTO answerFormDTO, BindingResult result) {
+	public String createAnswer(@PathVariable("id") Long id,Model model,@Valid AnswerFormDTO answerFormDTO, BindingResult result,
+			Principal principal) {
 		Question question = questionService.getQuestionOne(id);
 		//불러온 question entity에 대한 답변 (answer) 저장 하기 
 		if(result.hasErrors()) {
@@ -35,7 +41,9 @@ public class AnswerController {
 			return "question_detail";
 			//return String.format("redirect:/question/detail/%s",id);
 		}
-		answerService.createAnswer(question, answerFormDTO.getContent());
+		//principal이 현재 로그인한 유저의 이름을 갖고온다
+		Users users = usersService.getUsers(principal.getName());
+		answerService.createAnswer(question, answerFormDTO.getContent(),users);
 		
 		//model.addAttribute("question", question);
 		//String.format은 서식문자열을 지정할수있다 printf마냥

@@ -15,19 +15,26 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class Answer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="answer_id")
+	@Column(name = "answer_id")
 	private Long id;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	private LocalDateTime createDate;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="question_id")
+	@JoinColumn(name = "question_id")
 	private Question question;
+
+	// 글쓴이
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private Users users;
+
 }

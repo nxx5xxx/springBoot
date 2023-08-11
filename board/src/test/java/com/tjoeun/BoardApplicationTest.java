@@ -18,6 +18,8 @@ import com.tjoeun.entity.Answer;
 import com.tjoeun.entity.Question;
 import com.tjoeun.repository.AnswerRepository;
 import com.tjoeun.repository.QuestionRepository;
+import com.tjoeun.service.QuestionService;
+import com.tjoeun.service.UsersService;
 
 @SpringBootTest
 //@Transactional
@@ -28,6 +30,12 @@ class BoardApplicationTest {
 	
 	@Autowired
 	private AnswerRepository answerRepository;
+	
+	@Autowired
+	private QuestionService questionService;
+	
+	@Autowired
+	private  UsersService usersService;
 	
 	@Test
 	@DisplayName("질문테스트-1")
@@ -163,5 +171,15 @@ class BoardApplicationTest {
 		// answer1 답변글에 있는 질문글의 answer1 Entity의 question_id가 q1 Entity의 question_id와 같은가
 		assertEquals(answer1.getQuestion().getId(),q1.getId());
 	}
-	
+	/* 질문글 더미 한꺼번에 올리기 */
+	@Test
+	@DisplayName("질문글 더미데이터 500")
+	void uploadBoardTeest() {
+		for(int i=0;i<=500;i++) {
+			//스트링포맷은 서식지정자 형식으로 사용가능하다 - 03은 세자리
+			String subject = String.format("테스트 게시글 : [%03d]", i);
+			String content = String.format("여기는 테스트 게시글 [%03d] 입니다", i);
+			questionService.saveQuestion(subject, content, null );
+		}
+	}
 }

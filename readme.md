@@ -50,3 +50,13 @@
     ResponseBody
     타임리프
     String.format
+
+## [0811](https://github.com/nxx5xxx/springBoot/blob/master/0811.md)  
+    에러 창하나로 돌려쓰기 fragment
+    페이징처리
+    댓글개수
+    스프링시큐리티
+    시큐리티 기본설정
+    로그인설정
+    글쓴이설정
+    Principal
