@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tjoeun.dto.AnswerFormDTO;
 import com.tjoeun.dto.QuestionFormDTO;
@@ -43,11 +45,22 @@ public class QuestionController {
 //		return "<h1>질문글 목록</h1>";
 //	}
 	
+//	@GetMapping("/list")
+//	public String list(@RequestParam(value="page", defaultValue="0") int page ,Model model) {
+//		Page<Question> paging = questionService.getList(page);
+//		model.addAttribute("paging", paging);
+//		//model.addAttribute("page",page);
+//		return "question_list";
+//	}
+	// 검색
+	// @RequestParam(value="keyword",defaultValue="") String Keyword <-- 추가함
 	@GetMapping("/list")
-	public String list(@RequestParam(value="page", defaultValue="0") int page ,Model model) {
-		Page<Question> paging = questionService.getList(page);
-		model.addAttribute("paging", paging);
-		//model.addAttribute("page",page);
+	public String list(Model model,
+						@RequestParam(value="page", defaultValue="0") int page,
+						@RequestParam(value="keyword", defaultValue="") String keyword) {
+		Page<Question> paging = questionService.getList(page, keyword);
+		model.addAttribute("paging",paging);
+		model.addAttribute("keyword",keyword);
 		return "question_list";
 	}
 	
@@ -76,4 +89,57 @@ public class QuestionController {
 		
 		return "redirect:/question/list";
 	}
+	
+	//sec:authorize에 넣은값과 같아야한다
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/modify/{id}")
+	public String questionModify(QuestionFormDTO questionFormDTO,
+								@PathVariable("id") Long id,
+								Principal principal) {
+		//principal.getName() = 현재 로그인아이디
+		Question question = questionService.getQuestionOne(id);
+		if(!question.getUsers().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정권한 없음");
+		}
+		questionFormDTO.setSubject(question.getSubject());
+		questionFormDTO.setContent(question.getContent());
+		return "question_form";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/modify/{id}")
+	public String questionModify(@Valid QuestionFormDTO questionFormDTO,BindingResult result,
+								Principal principal,@PathVariable Long id) {
+		if(result.hasErrors()) {
+			return "question_form";
+		}
+		Question question = questionService.getQuestionOne(id);
+		if(!question.getUsers().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한 없음");
+		}
+		questionService.modify(question, questionFormDTO.getSubject(), questionFormDTO.getContent());
+		return "redirect:/question/detail/"+id;
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/delete/{id}")
+	public String questionDelete(@PathVariable Long id , Principal principal) {
+		Question question = questionService.getQuestionOne(id);
+		if(!question.getUsers().getUsername().equals(principal.getName())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "삭제 권한 없음");
+		}
+		questionService.delete(question);
+		return "redirect:/";
+	}
+	
+	//추천 저장
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/vote/{id}")
+	public String questionVote(@PathVariable Long id , Principal principal) {
+		Question question = questionService.getQuestionOne(id);
+		Users users = usersService.getUsers(principal.getName());
+		questionService.vote(question, users);
+		return String.format("redirect:/question/detail/%s",id);
+	}
+	
 }

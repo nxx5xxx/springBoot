@@ -5,7 +5,20 @@
       
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-    <form th:action="@{/question/create}" method="post" th:object="${questionFormDTO}">
+    <form  method="post" th:object="${questionFormDTO}">
+    <!-- th:action="@{/question/create}" -->
+    <!-- 액션을 삭제하면 csrf가 생성되지 않음 -->
+    <!-- 
+    	form tag의 액션 속성을 지정하지않고 submit을 하면
+    	현재 URL을 기준으로 전송된다
+    	질문 등록할 때 browser에 표시되는 URL은 /question/create 이르모
+    	post방식으로 폼을 전송할 때 action 속성에는 자동으로 /question/create 가 설정되고
+    	질문 수정할 때 browser에 표시되는 URL은 /question/modify/글번호 로 되므로
+    	post 방식으로 폼을 전송 할 때 action 속성에는 자동으로
+    	/question/modify/글번호 로 설정된다
+     -->
+    
+    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <!-- 폼에러즈에서 정한 프레그먼트 -->
     	<div th:replace="form_errors::formErrorsFragment"></div>
     	

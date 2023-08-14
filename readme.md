@@ -60,3 +60,19 @@
     로그인설정
     글쓴이설정
     Principal
+
+## [0814](https://github.com/nxx5xxx/springBoot/blob/master/0814.md)
+    글쓴이
+    작성자
+    수정, 수정일
+    href는 @를 붙여준다
+    HttpStatus.BAD_REQUEST
+    Principal
+    @PreAuthorize("isAuthenticated()")
+    삭제
+    추천 기능 추가
+    앵커태그
+    검색기능
+    익명클래스
+    QuestionService 의 search메소드
+    JPQL
