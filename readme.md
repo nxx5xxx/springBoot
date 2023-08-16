@@ -76,3 +76,7 @@
     익명클래스
     QuestionService 의 search메소드
     JPQL
+
+## [0816](https://github.com/nxx5xxx/springBoot/blob/master/0816.md)
+    댓글 등록 , 수정, 삭제
+    부트프로젝트 방향성 의논

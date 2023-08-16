@@ -66,8 +66,11 @@ public class QuestionController {
 	
 	@GetMapping("/detail/{id}")
 	public String detail(@PathVariable("id") Long id,Model model,Question question,AnswerFormDTO answerFormDTO) {
-		question = questionService.getQuestionOne(id);
-		model.addAttribute("question", question);
+		//PMD수정 전
+		//question = questionService.getQuestionOne(id);
+		//model.addAttribute("question", question);
+		//PMD수정 후
+		model.addAttribute("question", questionService.getQuestionOne(id));
 		return "question_detail";
 	}
 	
