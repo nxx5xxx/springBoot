@@ -1,0 +1,92 @@
+# 스몰프로젝트
+## 작업순서
+### 1) pom.xml설정
+	롬복 , MySQL Driver , Spring Boot DevTools
+	Spirng Configuration Processor , Spring Data JDBC , Spring Security,
+	Thymeleaf , Validation , querydsl - jpa,apt , modelMapper , 
+	thymeleaf - springSecurity5 , thymeleaf layout dialect , mySQl Connector for java 추가 
+	
+### 2) application.properties 설정
+	서버포트 , 어플리케이션네임
+	MySQL 연결 세팅 - 드라이버 , url , username , password
+	jpa 설정 - sql 문 출력하는 기능이랑 줄바꿈 가지런하게 나오는것 , ddl초기화옵션
+	로그 정보 출력설정
+	멀티파트파일 업로드 설정
+
+### 3) 폴더 설정
+	properties 에 적은 폴더들 D드라이브에 만들어줌
+	
+### 4) resources폴더에 static, templates 폴더 만들기
+
+### 5) 작업속도 증가를 위해 Html 쇼트컷 추가
+	Window > perspective > CustomPerspective
+	
+### 6) 중간단계 테스트 진행
+	index.html만들어서 spring Security 로그인창 확인과
+	테스트 글자 확인 진행
+	
+### 7) 계속 로그인할 수 없으니 config 패키지 생성하여 SecurityConf 만들어서 설정해줌
+	
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+		http.authorizeHttpRequests()
+			.mvcMatchers("/**").permitAll()
+			.mvcMatchers("/admin/**").hasRole("ADMIN")
+			.anyRequest().authenticated();
+			
+		
+		return http.build();
+	}
+ 	
+### 8) 헤더와 푸터 콘텐츠 레이아웃 짜고 템플레이츠 만들어서 적용
+	콘텐츠 레이아웃
+	<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org"
+	      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	      layout:decorate="~{layouts/layout}">
+	<div layout:fragment="content">
+	테스트
+	</div>
+	</html>
+	
+### 9) 회원기능 넣기
+	9-1 ) 회원가입
+	넣을라고 entity 생성해서 @Entity어노테이션 달아보니까 작동안돼서
+	pom.xml에 jpa추가
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	
+	9-1 ) 헤더에 회원가입 추가하고
+	9-2 ) entity패키지 추가하고 패키지에 회원에 대한 테이블 작성
+	9-3 ) dto 패키지 추가하고 memberDTO 작성
+	9-4 ) 시큐리티를위해 상수 constant 패키지 생성 후 Role.java 생성하여 USER ADMIN분류
+	9-5 ) 레포지토리 패키지 생성하여 멤버인터페이스 생성하고 JpaRepository 익스텐즈
+	9-6 ) 서비스 만득리
+	9-7 ) 컨트롤러 만들기
+	
+### 10) 세큐리티 컨피그에 로그인 연결
+
+### 11) query dsl을 적용하던도중 q클래스파일이 생성되지않아 5~6시간을 해맷는데
+	플러그인에
+				<!-- que클래스 라는걸 만들어줌 -->
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.1.3</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+	를 추가하지않은걸 깨닳았다 
+	 
