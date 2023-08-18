@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.okmall.dto.ItemSearchDto;
 import com.okmall.dto.MainItemDto;
+import com.okmall.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
 

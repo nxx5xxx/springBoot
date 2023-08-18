@@ -1,7 +1,5 @@
 package com.okmall.service;
 
-import java.util.Optional;
-
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
@@ -63,6 +61,15 @@ public class MemberService implements UserDetailsService{
 //					.password(member.getPassword())
 //					.roles(member.getRole().toString())
 //					.build();
+	}
+	
+	public Member getMember(String email) {
+		Member member = memberRepository.findByEmail(email);
+		//.orElseThrow(()-> new EntityNotFoundException("해당 회원이 없습니다"))
+		
+		
+
+		return member;
 	}
 	
 	

@@ -1,0 +1,65 @@
+package com.okmall.entity;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Getter @Setter
+@ToString
+public class Question {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="question_id")
+	private Long id;
+	
+	//길이
+	@Column(length=200)
+	private String subject;
+	
+	
+	@Column(columnDefinition = "TEXT")
+	private String content;
+	private LocalDateTime createDate;
+	
+	//퀘스쳔이 부모가됨
+	//퀘스쳔이 One 질문하나에 답글 여러개
+	//아래 설정을 안해주면 양방향으로 되지않음 이렇게 해야 양방향으로 설정되어 서로의 내용에 연관관계맺음
+	@OneToMany(mappedBy  = "question", cascade = CascadeType.ALL,
+				orphanRemoval = true,fetch = FetchType.LAZY)
+	private List<Answer> answerList = new ArrayList<>();
+	
+	//글쓴이
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="member_id")
+	private Member member;
+	
+	//수정날짜
+	private LocalDateTime modifyDate;
+	
+	//추천
+	@ManyToMany
+	private Set<Member> voter;
+	
+	@OneToMany(mappedBy  = "question", cascade = CascadeType.ALL,
+			orphanRemoval = true,fetch = FetchType.LAZY)
+	private List<Comment> commentList = new ArrayList<>();
+}

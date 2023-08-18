@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.okmall.dto.ItemFormDto;
 import com.okmall.dto.ItemSearchDto;
 import com.okmall.entity.Item;
+import com.okmall.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
 
