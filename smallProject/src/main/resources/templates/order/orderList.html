@@ -105,7 +105,10 @@
                 <th:block th:if="${#strings.equals(order.orderStatus,'ORDER')}">
                     <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
                 </th:block>
-                <th:block th:unless="${#strings.equals(order.orderStatus,'ORDER')}">
+                <th:block th:if="${#strings.equals(order.orderStatus,'REVIEW')}">
+                    <h4>구매 완료</h4>
+                </th:block>
+                <th:block th:unless="${#strings.equals(order.orderStatus,'ORDER') or #strings.equals(order.orderStatus,'REVIEW')}">
                     <h4>(취소 완료)</h4>
                 </th:block>
             </div>

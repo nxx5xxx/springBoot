@@ -76,5 +76,9 @@ public class Order extends BaseEntity {
             orderItem.cancel();
         }
     }
+    
+    public void reviewOrder() {
+        this.orderStatus = OrderStatus.REVIEW;
+    }
 
 }

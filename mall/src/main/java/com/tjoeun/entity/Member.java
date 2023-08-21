@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.tjoeun.constant.Role;
-import com.tjoeun.dto.MemberFormDto;
+import com.tjoeun.dto.MemberFormDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +46,7 @@ public class Member extends BaseEntity {
 	// SecurityConfig 클래스에서
 	// 회원가입할 때 입력한 비밀번호 암호 처리한 것을
 	// DB에 적용하기
-	public static Member createMember(MemberFormDto memberFormDTO, PasswordEncoder passwordEncoder) {
+	public static Member createMember(MemberFormDTO memberFormDTO, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		member.setName(memberFormDTO.getName());
 		member.setEmail(memberFormDTO.getEmail());

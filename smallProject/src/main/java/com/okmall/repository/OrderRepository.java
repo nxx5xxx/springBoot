@@ -21,4 +21,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "where o.member.email = :email"
     )
     Long countOrder(@Param("email") String email);
+    
+    @Query("select o from Order o " +
+            "where o.member.email = :email " +
+    		"and o.orderStatus = 'ORDER' "+
+            "order by o.orderDate desc"
+    )
+    List<Order> findOrders(@Param("email") String email);
+    
+
 }

@@ -80,6 +80,27 @@ public class OrderService {
 
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
     }
+    
+    @Transactional(readOnly = true)
+    public List<OrderHistDto> getOrderList(String email) {
+    	List<Order> orders = orderRepository.findOrders(email);
+        List<OrderHistDto> orderHistDtos = new ArrayList<>();
+    	
+        for (Order order : orders) {
+            OrderHistDto orderHistDto = new OrderHistDto(order);
+            List<OrderItem> orderItems = order.getOrderItems();
+            for (OrderItem orderItem : orderItems) {
+                ItemImg itemImg = itemImgRepository.findByItemIdAndRepimgYn
+                        (orderItem.getItem().getId(), "Y");
+                OrderItemDto orderItemDto =
+                        new OrderItemDto(orderItem, itemImg.getImgUrl());
+                orderHistDto.addOrderItemDto(orderItemDto);
+            }
+
+            orderHistDtos.add(orderHistDto);
+        }
+        return orderHistDtos;
+    }
 
     @Transactional(readOnly = true)
     public boolean validateOrder(Long orderId, String email){
@@ -98,7 +119,8 @@ public class OrderService {
     public void cancelOrder(Long orderId){
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
-        order.cancelOrder();
+        order.reviewOrder();
+        
     }
 
     public Long orders(List<OrderDto> orderDtoList, String email){
@@ -118,6 +140,12 @@ public class OrderService {
         orderRepository.save(order);
 
         return order.getId();
+    }
+    
+    public void writeReview(int order_btn) {
+    	Order order = orderRepository.findById((long)order_btn).orElseThrow(EntityNotFoundException::new);
+    	order.reviewOrder();
+    	orderRepository.save(order);
     }
 
 }

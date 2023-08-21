@@ -9,8 +9,10 @@ import com.okmall.entity.Order;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter @Setter
+@ToString
 public class OrderHistDto {
 
     public OrderHistDto(Order order){
