@@ -43,7 +43,7 @@ public class AnswerController {
 		//불러온 question entity에 대한 답변 (answer) 저장 하기 
 		if(result.hasErrors()) {
 			model.addAttribute("question", question);
-			return "question_detail";
+			return "notice/question_detail";
 			//return String.format("redirect:/question/detail/%s",id);
 		}
 		//principal이 현재 로그인한 유저의 이름을 갖고온다
@@ -65,7 +65,7 @@ public class AnswerController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " 수정권한 없음");
 		}
 		answerFormDto.setContent(answer.getContent());
-		return "answer_form";
+		return "notice/answer_form";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -73,7 +73,7 @@ public class AnswerController {
 	public String answerModify(@Valid AnswerFormDto answerFormDto , BindingResult result,
 								@PathVariable("id") Long id,Principal principal) {
 		if(result.hasErrors()) {
-			return "answer_form";
+			return "notice/answer_form";
 		}
 		Answer answer = answerService.getAnswerOne(id);
 		if(!answer.getMember().getEmail().equals(principal.getName())) {

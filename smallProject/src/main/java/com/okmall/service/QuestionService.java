@@ -125,4 +125,6 @@ public class QuestionService {
 		Pageable pageable = PageRequest.of(page, 10,Sort.by(sorts));
 		return questionRepository.findAllByKeyword(keyword, pageable);
 	}
+	
+	
 }

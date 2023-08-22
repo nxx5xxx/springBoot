@@ -19,6 +19,7 @@
 				<th style="width : 50%">제 목</th>
 				<th>글쓴이</th>
 				<th>등록일</th>
+				<th>상 품</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,6 +42,7 @@
 				<td class="text-start" 
 					th:text="${#temporals.format(review.createDate,'yyyy-MM-dd HH:mm')}"></td>
 				<!-- <td th:text="${review.createDate}"></td> -->
+				<td class="text-start" th:text="${review.item.itemNm}"></td> 
 			</tr>
 		</tbody>
 

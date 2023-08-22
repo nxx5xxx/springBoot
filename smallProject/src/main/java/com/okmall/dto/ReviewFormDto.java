@@ -22,6 +22,9 @@ public class ReviewFormDto {
 	@NotBlank(message = "내용은 반드시 입력해주세요")
 	private String content;
 	
+//	@NotBlank(message = "주문번호는 반드시 선택해주세요")
+//	private String itemId;
+	
 	private List<ReviewImgDto> reviewImgDtoList = new ArrayList<>();
 	
 	private List<Long> reviewImgIds = new ArrayList<>();

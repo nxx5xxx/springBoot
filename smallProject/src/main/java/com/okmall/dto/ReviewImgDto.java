@@ -4,6 +4,10 @@ import org.modelmapper.ModelMapper;
 
 import com.okmall.entity.ReviewImg;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class ReviewImgDto {
 	private Long id;
 	

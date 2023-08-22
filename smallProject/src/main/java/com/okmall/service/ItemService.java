@@ -17,8 +17,10 @@ import com.okmall.dto.ItemSearchDto;
 import com.okmall.dto.MainItemDto;
 import com.okmall.entity.Item;
 import com.okmall.entity.ItemImg;
+import com.okmall.entity.OrderItem;
 import com.okmall.repository.ItemImgRepository;
 import com.okmall.repository.ItemRepository;
+import com.okmall.repository.OrderItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,6 +34,8 @@ public class ItemService {
     private final ItemImgService itemImgService;
 
     private final ItemImgRepository itemImgRepository;
+    
+    private final OrderItemRepository orderItemRepository;
 
     public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception{
 
@@ -54,7 +58,14 @@ public class ItemService {
 
         return item.getId();
     }
-
+    
+    public Item getItem(Long itemId) {
+    	OrderItem orderItem = orderItemRepository.findByOrderId(itemId);
+    	Item item = itemRepository.findById(orderItem.getItem().getId())
+                .orElseThrow(EntityNotFoundException::new);
+    	return item;
+    }
+    
     @Transactional(readOnly = true)
     public ItemFormDto getItemDtl(Long itemId){
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);

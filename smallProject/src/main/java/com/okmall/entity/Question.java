@@ -62,4 +62,6 @@ public class Question {
 	@OneToMany(mappedBy  = "question", cascade = CascadeType.ALL,
 			orphanRemoval = true,fetch = FetchType.LAZY)
 	private List<Comment> commentList = new ArrayList<>();
+	
+	
 }
