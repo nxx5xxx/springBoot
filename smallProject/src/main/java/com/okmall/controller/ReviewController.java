@@ -121,7 +121,7 @@ public class ReviewController {
 	}
 	
 	
-	//검색
+	//검색, 페이징처리 추가
 	@GetMapping("list")
 	public String reviewList(Model model,
 					@RequestParam(value="page", defaultValue="0") int page,
@@ -131,6 +131,16 @@ public class ReviewController {
 		Page<Review> paging = reviewService.getList(page, keyword);
 		model.addAttribute("paging",paging);
 		model.addAttribute("keyword",keyword);
+		//구매내역이 있어야 후기작성하도록 추가
+		List<OrderHistDto> ordersHistDtoList;
+		try {
+			ordersHistDtoList = orderService.getOrderList(principal.getName());
+			
+		} catch (Exception e) {
+			ordersHistDtoList = null;
+		}
+		
+		model.addAttribute("ordersHistDtoList", ordersHistDtoList);
 		try {
 		model.addAttribute("loginChk",principal.getName());
 		} catch (Exception e) {

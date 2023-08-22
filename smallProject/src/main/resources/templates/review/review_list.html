@@ -80,8 +80,7 @@
 		</ul>
 	</div>
 	<div  class="d-grid gap-2 d-md-flex justify-content-md-end">
-		<a th:if="${loginChk != null}" th:href="@{/review/new}" class="btn btn-primary button-right">후기등록</a>
-		<!-- th:if="${principal.getName != null}" -->
+		<a th:if="${loginChk != null and ordersHistDtoList.size()>0 }" th:href="@{/review/new}" class="btn btn-primary button-right">후기등록</a>
 	</div>
 	<form th:action="@{/review/list}" method="get" id="searchForm">
 		<input type="hidden" id="keyword" name="keyword" th:value="${keyword}">
